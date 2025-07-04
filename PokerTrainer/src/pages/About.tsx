@@ -81,6 +81,40 @@ const About = () => {
               how you're improving over time and which areas need more work.
             </li>
           </ol>
+          <div className="bg-muted p-3 rounded-md text-sm">
+            <strong>Clarifications:</strong>
+            <ul className="list-disc pl-6 mt-2 space-y-1">
+              <li>
+                <strong>Pot size</strong> shown <u>does not</u> include the
+                amount you need to call. For example, if the pot is 16 and an
+                opponent bets 30, the pot size is 16 and the amount to call is
+                30. If you call, the total pot after your call will be 16 + 30 +
+                30 = 76 (your call plus the opponent's bet plus the original
+                pot).
+              </li>
+              <li>
+                <strong>Pot odds</strong> are calculated as:{" "}
+                <code>call amount / (pot size + call amount)</code>. For
+                example, if the pot is 16 and you need to call 30, your pot odds
+                are 30 / (16 + 30) = 65.2%.
+              </li>
+              <li>
+                <strong>Assumption:</strong> There are no players left to act
+                behind you. The scenario is heads-up between you and the bettor.
+              </li>
+              <li>
+                <strong>Equity</strong> is a simplified estimate based on your
+                hand, the board, and the number of players. It does not account
+                for advanced factors or exact opponent ranges.
+              </li>
+              <li>
+                <strong>Explanations</strong> are generated automatically based
+                on the scenario and the logic in the app. The odds and correct
+                play are determined by comparing your estimated equity to your
+                pot odds.
+              </li>
+            </ul>
+          </div>
           <p className="mt-4">
             <strong>Note:</strong> This trainer uses simplified equity
             calculations for educational purposes. In real poker, exact equity

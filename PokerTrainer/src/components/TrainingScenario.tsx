@@ -1,10 +1,15 @@
-
-import React, { useState } from 'react';
-import { Button } from './ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
-import PokerHand from './PokerHand';
-import { GameState, TrainingResult } from '@/lib/types';
-import { formatCard } from '@/lib/poker';
+import React, { useState } from "react";
+import { Button } from "./ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import PokerHand from "./PokerHand";
+import { GameState, TrainingResult } from "@/lib/types";
+import { formatCard } from "@/lib/poker";
 
 interface TrainingScenarioProps {
   gameState: GameState;
@@ -20,23 +25,23 @@ const TrainingScenario: React.FC<TrainingScenarioProps> = ({
   const [decision, setDecision] = useState<boolean | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
 
-  const { 
-    playerHand, 
-    communityCards, 
-    street, 
-    playerCount, 
-    potSize, 
-    betToCall, 
-    isGoodCall, 
-    explanation 
+  const {
+    playerHand,
+    communityCards,
+    street,
+    playerCount,
+    potSize,
+    betToCall,
+    isGoodCall,
+    explanation,
   } = gameState;
 
   const handleDecision = (callDecision: boolean) => {
     if (decision !== null) return;
-    
+
     const isCorrect = callDecision === isGoodCall;
     setDecision(callDecision);
-    
+
     const result: TrainingResult = {
       id: Date.now().toString(),
       timestamp: Date.now(),
@@ -44,7 +49,7 @@ const TrainingScenario: React.FC<TrainingScenarioProps> = ({
       userDecision: callDecision,
       isCorrect,
     };
-    
+
     onDecision(callDecision, result);
     setShowExplanation(true);
   };
@@ -62,9 +67,7 @@ const TrainingScenario: React.FC<TrainingScenarioProps> = ({
           <span>
             {street.charAt(0).toUpperCase() + street.slice(1)} Decision
           </span>
-          <span className="text-sm font-normal">
-            {playerCount} players
-          </span>
+          <span className="text-sm font-normal">{playerCount} players</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -92,16 +95,15 @@ const TrainingScenario: React.FC<TrainingScenarioProps> = ({
         </div>
 
         {decision !== null && (
-          <div className={`p-4 rounded-md ${decision === isGoodCall ? 'bg-green-100 dark:bg-green-900' : 'bg-red-100 dark:bg-red-900'}`}>
-            <p className="font-bold mb-2">
-              {decision === isGoodCall
-                ? '✓ Correct Decision!'
-                : '✗ Incorrect Decision!'}
-            </p>
-            <p>
-              The {isGoodCall ? 'correct' : 'incorrect'} decision was to{' '}
-              {isGoodCall ? 'call' : 'fold'}.
-            </p>
+          <div
+            className={`p-4 rounded-md ${
+              decision === isGoodCall
+                ? "bg-green-100 dark:bg-green-900"
+                : "bg-red-100 dark:bg-red-900"
+            }`}
+          >
+            <p className="font-bold mb-2">{isGoodCall ? "✓" : "✗"}</p>
+            <p>The correct decision was to {isGoodCall ? "call" : "fold"}.</p>
           </div>
         )}
 
@@ -115,17 +117,14 @@ const TrainingScenario: React.FC<TrainingScenarioProps> = ({
       <CardFooter className="flex gap-2">
         {decision === null ? (
           <>
-            <Button 
-              variant="outline" 
-              className="w-1/2" 
+            <Button
+              variant="outline"
+              className="w-1/2"
               onClick={() => handleDecision(false)}
             >
               Fold
             </Button>
-            <Button 
-              className="w-1/2" 
-              onClick={() => handleDecision(true)}
-            >
+            <Button className="w-1/2" onClick={() => handleDecision(true)}>
               Call {betToCall}
             </Button>
           </>
